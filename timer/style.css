@@ -64,7 +64,7 @@ body{
 
   .transition {
     transition-property: transform background;
-    transition-duration: 0.5s;
+    transition-duration: 0.75s;
   }
 
   
