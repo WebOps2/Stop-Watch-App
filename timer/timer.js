@@ -9,8 +9,6 @@ class Timer{
         this.p = this.circle.getAttribute('r')*2* Math.PI
         this.circle.setAttribute('stroke-dasharray', this.p)
         this.t = 0
-        this.btn = document.querySelector('#btn')
-        this.btn.style.display = 'none'
     }
 
     start = ()=>{
