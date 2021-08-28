@@ -56,18 +56,28 @@ class Timer{
 
     onStart(totalDuration){
         duration = totalDuration
+    
     }
 
     onTick(){
         let timeRemaining = this.p/duration * 0.05
          this.t = (this.t - timeRemaining)
         this.circle.setAttribute('stroke-dashoffset', this.t)
+        if(this.timeRemaining === duration/2){
+            this.circle.setAttribute('stroke', 'yellow')
+            console.log('Timer has almost completed')
+        }
+        else if(this.timeRemaining === duration/4){
+            this.circle.setAttribute('stroke', 'red')
+        }
         
     }
 
     onComplete(){
         console.log('Timer completed')
     }
+
+  
 
 }
 
