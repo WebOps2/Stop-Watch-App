@@ -65,10 +65,13 @@ class Timer{
         this.circle.setAttribute('stroke-dashoffset', this.t)
         if(this.timeRemaining === duration/2){
             this.circle.setAttribute('stroke', 'yellow')
+            this.circle.setAttribute('class', 'transition')
             console.log('Timer has almost completed')
         }
         else if(this.timeRemaining === duration/4){
-            this.circle.setAttribute('stroke', 'red')
+             this.circle.setAttribute('stroke', 'red')
+             this.circle.setAttribute('class', 'transition')
+           
         }
         
     }

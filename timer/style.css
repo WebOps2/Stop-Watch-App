@@ -67,4 +67,10 @@ body{
     align-items: center;
     flex-direction: column;
   }
+
+  .transition {
+    transition-property: transform background;
+    transition-duration: 1s;
+  }
+  
   
