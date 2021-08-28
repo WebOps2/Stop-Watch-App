@@ -9,6 +9,8 @@ class Timer{
         this.p = this.circle.getAttribute('r')*2* Math.PI
         this.circle.setAttribute('stroke-dasharray', this.p)
         this.t = 0
+        this.btn = document.querySelector('#btn')
+        this.btn.style.display = 'none'
     }
 
     start = ()=>{
@@ -26,10 +28,13 @@ class Timer{
     tick = ()=>{
         // let timeRemaining = parseFloat(this.onDuration.value)
         // this.onDuration.value = timeRemaining - 1
-        if(this.timeRemaining === 0){
+        if(this.timeRemaining === 0.00){
             this.pause()
             if(this.onComplete){
                 this.onComplete()
+                if(this.timeRemaining == 0.00){
+                    this.timeInterval()
+                }
             }
         }
         else{
@@ -74,6 +79,13 @@ class Timer{
            
         }
         
+    }
+
+    timeInterval(){
+        setTimeout(() => {
+            alert('Would you like to reset timer')
+            location.reload()
+        }, 1000);
     }
 
     onComplete(){

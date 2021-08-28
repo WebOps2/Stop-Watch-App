@@ -2,14 +2,11 @@
 body{
   height: 100vh;
   width: 100vh;
-  overflow: hidden;
+  /* display: flex;
+  align-items: center; */
+  /* overflow: hidden; */
 }
-/* 
-.move{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
+
 .dial {
     height: 400px;
     width: 400px;
@@ -18,11 +15,8 @@ body{
   .timer {
     position: relative;
     display: inline-block;
-    margin: auto;
-    left: 60%;
-    top: 100px;
-    display: flex;
-    justify-content: center;
+    left: 80%;
+    bottom: 10px;
   }
   
   * {
@@ -70,7 +64,8 @@ body{
 
   .transition {
     transition-property: transform background;
-    transition-duration: 1s;
+    transition-duration: 0.5s;
   }
+
   
   
