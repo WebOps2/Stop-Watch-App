@@ -4,7 +4,7 @@ body{
   width: 100vh;
   /* display: flex;
   align-items: center; */
-  /* overflow: hidden; */
+  overflow: hidden;
 }
 
 .dial {
@@ -66,6 +66,12 @@ body{
     transition-property: transform background;
     transition-duration: 0.75s;
   }
+
+.input-container{
+  position: relative;
+  left: 180%;
+  top: 30px;
+}
 
   
   

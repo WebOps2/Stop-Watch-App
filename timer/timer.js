@@ -9,18 +9,43 @@ class Timer{
         this.p = this.circle.getAttribute('r')*2* Math.PI
         this.circle.setAttribute('stroke-dasharray', this.p)
         this.t = 0
+        this.play = document.querySelector('#start')
+        this.stop = document.querySelector('#pause')
+        this.input = document.querySelector('input')
+        this.input.addEventListener('keypress',(e) =>{
+            if(e.key === 'Enter'){
+                this.onDuration.value = this.input.value
+            }
+           
+        })
     }
 
     start = ()=>{
-        if(this.onStart){
-            this.onStart(this.timeRemaining)
+        
+        if(this.input.value === ''){
+            alert('Input Number')
+        }
+        else{
+            if(this.onStart){
+                this.onStart(this.onDuration.value)
+            }
+
+            this.interval = setInterval(this.tick, 50)
+        this.play.style.display = 'none'
+        this.stop.style.display = 'inline-block'
         }
         // this.tick
-        this.interval = setInterval(this.tick, 50)
+        
+   
     }
+
+    
     
     pause = ()=>{
         clearInterval(this.interval)
+        this.play.style.display = 'inline-block'
+        this.stop.style.display = 'none'
+
     }
 
     tick = ()=>{
@@ -37,7 +62,7 @@ class Timer{
         }
         else{
             if(this.onTick){
-                this.onTick()
+                this.onTick(this.input.value)
             }
         
             this.timeRemaining = this.timeRemaining - .05
@@ -62,16 +87,21 @@ class Timer{
     
     }
 
-    onTick(){
-        let timeRemaining = this.p/duration * 0.05
-         this.t = (this.t - timeRemaining)
+    onTick(num){
+
+        if(this.timeRemaining == num){
+            this.time = this.p/num * 0.05  
+          }
+    
+      
+         this.t = (this.t - this.time)
         this.circle.setAttribute('stroke-dashoffset', this.t)
-        if(this.timeRemaining === duration/2){
+        if(this.timeRemaining === this.input.value/2){
             this.circle.setAttribute('stroke', 'yellow')
             this.circle.setAttribute('class', 'transition')
             console.log('Timer has almost completed')
         }
-        else if(this.timeRemaining === duration/4){
+        else if(this.timeRemaining === this.input.value/4){
              this.circle.setAttribute('stroke', 'red')
              this.circle.setAttribute('class', 'transition')
            
@@ -90,13 +120,15 @@ class Timer{
         console.log('Timer completed')
     }
 
-  
-
 }
 
 const onDuration = document.querySelector('#duration')
 const startButton = document.querySelector('#start')
 const pauseButton = document.querySelector('#pause')
+
+ document.querySelector('#pause').style.display = 'none'
+
+
 // p * timeRemaining / duration - p  
 let duration;
 
