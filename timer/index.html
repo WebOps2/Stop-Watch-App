@@ -16,20 +16,24 @@
   
 
   <body>
-    <div class="input-container">
+    <!-- <div class="input-container">
       <h2>Enter Number here</h2>
-      <input id="number" placeholder="Enter Number" type="number">
+      <input id="number" placeholder="Enter Number" type="number" >
 
-    </div>
+    </div> -->
 
     <div class="move">
       <div class="timer">
         <div class="controls">
           
-          <input id="duration"  />
+          <input id="duration" value="00.00" readonly />
           <div>
             <button id="start"><i class="fas fa-play"></i></button>
             <button id="pause"><i class="fas fa-pause"></i></button>
+            <button id="redo"><i class="fas fa-redo-alt"><title>Reset Timer</title></i></button>
+            <button id="editbtn"><i class="far fa-clock"> <title>Edit Timer</title></i></button>
+            
+
           </div>
         </div>
         <svg class="dial">
@@ -52,3 +56,4 @@
     
   </body>
 </html>
+<p id="demo"></p>

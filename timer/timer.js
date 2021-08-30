@@ -1,42 +1,73 @@
 class Timer{
-    constructor(onDuration, startButton, pauseButton){
+    constructor(onDuration, startButton, pauseButton, editbtn){
         this.onDuration = onDuration
         this.startButton = startButton
         this.pauseButton = pauseButton
+        this.editbtn = editbtn
         this.startButton.addEventListener('click',this.start)
         this.pauseButton.addEventListener('click',this.pause)
         this.circle = document.querySelector('circle')
         this.p = this.circle.getAttribute('r')*2* Math.PI
         this.circle.setAttribute('stroke-dasharray', this.p)
         this.t = 0
+        this.reloadBtn = document.querySelector('#redo')
+        this.editbtn = document.querySelector('#editbtn')
         this.play = document.querySelector('#start')
         this.stop = document.querySelector('#pause')
         this.input = document.querySelector('input')
-        this.input.addEventListener('keypress',(e) =>{
-            if(e.key === 'Enter'){
-                this.onDuration.value = this.input.value
-            }
-           
+      
+        // })
+        this.editbtn.addEventListener('click', ()=>{
+            this.person = prompt("Enter a Value", "0");
+            if (this.person == null || this.person == "") {
+              console.log('User cancelled the prompt.')
+              document.querySelector('#editbtn').style.display = 'inline-block'
+              document.querySelector('#redo').style.display = 'none'
+            } else {
+                this.onDuration.value = this.person + '.' + '00'
+                this.start()
+                this.input.value = this.person
+               if(this.person > 1000){
+                   this.timeRemaining = 0.00
+                   alert('Number is to large')
+                   location.reload()
+               }
+              
+            }      
+        })
+
+        this.reloadBtn.addEventListener('click', function(){
+            location.reload()
         })
     }
+   
 
     start = ()=>{
-        
-        if(this.input.value === ''){
-            alert('Input Number')
+    
+        if(this.timeRemaining < 0.00){
+            alert('Number is Negative')
+            this.timeRemaining = 0.00
+            this.input.value = ''
         }
         else{
             if(this.onStart){
                 this.onStart(this.onDuration.value)
             }
-
+            // alert('h')
             this.interval = setInterval(this.tick, 50)
-        this.play.style.display = 'none'
-        this.stop.style.display = 'inline-block'
+            this.play.style.display = 'none'
+            this.stop.style.display = 'inline-block'
+            if(this.timeRemaining === 0.00){
+                // alert('Input number')
+            }
+            if(this.timeRemaining != 0.00){
+                document.querySelector('#editbtn').style.display = 'none'
+                document.querySelector('#redo').style.display = 'inline-block'
+            } 
+           
         }
-        // this.tick
+      
         
-   
     }
 
     
@@ -45,7 +76,6 @@ class Timer{
         clearInterval(this.interval)
         this.play.style.display = 'inline-block'
         this.stop.style.display = 'none'
-
     }
 
     tick = ()=>{
@@ -55,22 +85,13 @@ class Timer{
             this.pause()
             if(this.onComplete){
                 this.onComplete()
-                if(this.timeRemaining == 0.00){
-                    this.timeInterval()
-                }
             }
         }
         else{
             if(this.onTick){
-                this.onTick(this.input.value)
+                this.onTick(this.person)
             }
-        
-            this.timeRemaining = this.timeRemaining - .05
-            
-        }
-        if(this.timeRemaining > 60){
-            location.reload()
-            alert('error TImer is above 60')
+            this.timeRemaining = this.timeRemaining - .05   
         }
     }
 
@@ -92,28 +113,25 @@ class Timer{
         if(this.timeRemaining == num){
             this.time = this.p/num * 0.05  
           }
-    
-      
          this.t = (this.t - this.time)
         this.circle.setAttribute('stroke-dashoffset', this.t)
-        if(this.timeRemaining === this.input.value/2){
+        if(this.timeRemaining === this.person/2){
             this.circle.setAttribute('stroke', 'yellow')
             this.circle.setAttribute('class', 'transition')
             console.log('Timer has almost completed')
         }
-        else if(this.timeRemaining === this.input.value/4){
+        else if(this.timeRemaining === this.person/4){
              this.circle.setAttribute('stroke', 'red')
              this.circle.setAttribute('class', 'transition')
            
-        }
-        
+        }      
     }
 
     timeInterval(){
         setTimeout(() => {
-            alert('Would you like to reset timer')
+            alert('Timer is 0, set timer')
             location.reload()
-        }, 1000);
+        }, 500);
     }
 
     onComplete(){
@@ -125,11 +143,12 @@ class Timer{
 const onDuration = document.querySelector('#duration')
 const startButton = document.querySelector('#start')
 const pauseButton = document.querySelector('#pause')
+const cancelButton = document.querySelector('#redo').style.display = 'none'
+const editButton = document.querySelector('#editbtn').style.display = 'inline-block'
 
  document.querySelector('#pause').style.display = 'none'
-
 
 // p * timeRemaining / duration - p  
 let duration;
 
-const timer = new Timer(onDuration, startButton, pauseButton)
+const timer = new Timer(onDuration, startButton, pauseButton, cancelButton)
